@@ -1,0 +1,13 @@
+{
+  "name": "Flu",
+  "period": 3600,
+  "deadly": true,
+  "treats": {
+    "hot milk": "undefined",
+    "syrup": "healed",
+    "potato steam": "progress"
+  },
+  "stages": [
+    "pirvely"
+  ]
+}

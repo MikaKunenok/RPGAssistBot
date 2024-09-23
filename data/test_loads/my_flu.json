@@ -1,0 +1,74 @@
+[
+  {
+  "name": "MyFlu",
+  "period": 10,
+  "deadly": true,
+  "treats": {
+    "hot milk": "undefined",
+    "syrup": "healed",
+    "potato steam": "dead"
+  },
+  "stages": [
+      [
+        "cough",
+        {
+          "blood1": "good",
+          "bile": "good",
+          "mucus": "good"
+        }
+      ],
+      [
+        "nose",
+        {
+          "blood2": "good",
+          "bile": "good",
+          "mucus": "bad"
+        }
+      ],
+      [
+        "fever",
+        {
+          "blood3": "bad",
+          "bile": "good",
+          "mucus": "bad"
+        }
+      ]
+    ]
+  },
+  {
+  "name": "MyFlu2",
+  "period": 10,
+  "deadly": false,
+  "treats": {
+    "hot milk": "healed",
+    "syrup": "healed",
+    "potato steam": "healed"
+  },
+  "stages": [
+    [
+      "cough2",
+      {
+        "blood1": "good",
+        "bile": "good",
+        "mucus": "good"
+      }
+    ],
+    [
+      "nose2",
+      {
+        "blood2": "good",
+        "bile": "good",
+        "mucus": "bad"
+      }
+    ],
+    [
+      "fever2",
+      {
+        "blood3": "bad",
+        "bile": "good",
+        "mucus": "bad"
+      }
+    ]
+  ]
+  }
+]

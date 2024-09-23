@@ -1,0 +1,36 @@
+{
+  "name": "Entero",
+"period": 10,
+"deadly": true,
+"treats": {
+  "hot milk": "dead",
+  "syrup": "no effect",
+  "cola": "healed"
+},
+"stages": [
+  [
+    "stomach ache",
+    {
+      "blood": "bad",
+      "bile": "undefined",
+      "mucus": "good"
+    }
+  ],
+  [
+    "vomiting",
+    {
+      "blood": "bad",
+      "bile": "bad",
+      "mucus": "bad"
+    }
+  ],
+  [
+    "dead",
+    {
+      "blood": "bad",
+      "bile": "undefined",
+      "mucus": "bad"
+    }
+  ]
+]
+  }

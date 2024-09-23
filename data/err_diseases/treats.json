@@ -1,0 +1,36 @@
+{
+  "name": "Flu",
+  "period": 3600,
+  "deadly": false,
+  "treats": {
+    "hot milk": "better",
+    "syrup": "healed",
+    "potato steam": "progress"
+  },
+  "stages": [
+    [
+      "light cough",
+      {
+        "blood": "good",
+        "bile": "good",
+        "mucus": "good"
+      }
+    ],
+    [
+      "running nose",
+      {
+        "blood": "good",
+        "bile": "good",
+        "mucus": "bad"
+      }
+    ],
+    [
+      "fever",
+      {
+        "blood": "bad",
+        "bile": "good",
+        "mucus": "bad"
+      }
+    ]
+  ]
+}
