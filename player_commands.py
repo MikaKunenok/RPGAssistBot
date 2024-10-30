@@ -12,7 +12,7 @@ def only_player_wrapper(func):
         else:
             bot.send_message(message.chat.id,
                              'You are not known as a player here.\\n' +
-                             'Ask a master to add you. Use \\list_masters to know their ids')
+                             'Ask a master to add you. Masters:\n' + config.list_masters())
     return wrap
 
 

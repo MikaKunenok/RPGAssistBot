@@ -2,36 +2,40 @@ import telebot
 
 import config
 from the_bot import bot, set_commands, send_help_message
-import utilities
+
 
 @bot.message_handler(commands=['start'])
 def start_command(message):
     chat_id = message.chat.id
+    username = message.from_user.username
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.add(telebot.types.InlineKeyboardButton(
         'Disease Rules',
         url=config.RULES_URL
         )
     )
+    config.__USERNAMES[chat_id] = username
+    config.__CHATIDS[username] = chat_id
     bot.send_message(
         chat_id,
-        'Greetings!\n' +
+        'Greetings @%s!\n' % username +
         'This bot makes your roleplay at the polygon easier.\n' +
         'And automates some game-master\'s work.\n' +
         'Currently this bot holds Disease mechanics,\n click the button to see the rules -\n',
         reply_markup=keyboard,
     )
     if chat_id in config.MASTERS:
+        config.MASTERS[chat_id] = username
         bot.send_message(
             chat_id,
-            '%s, you are known as master' % config.MASTERS[chat_id]
+            '@%s, you are known as master' % username
         )
         set_commands(chat_id, config.MASTER_COMMANDS)
     elif chat_id in config.PLAYERS:
         player = config.PLAYERS[chat_id]
         bot.send_message(
             chat_id,
-            '%s, you are known as player' % player.name
+            '@%s, you are known as player called %s' % (username, player.name)
         )
         if player.is_healer:
             set_commands(chat_id, config.HEALER_COMMANDS)
@@ -79,10 +83,8 @@ def help_command(message):
 
 @bot.message_handler(commands=['list_masters'])
 def list_masters_command(message):
-    notify = ''
-    for chat_id, name in config.MASTERS.items():
-        notify += utilities.format_id_name(name, chat_id) + '\n'
-    bot.send_message(message.chat.id, notify)
+    bot.send_message(message.chat.id, config.list_masters())
+
 
 @bot.message_handler(commands=['im_master'])
 def immaster_command(message):
@@ -100,12 +102,6 @@ def get_master_pass(message):
     )
     notify = 'Password is wrong'
     if message.text == config.MASTER_PASS:
-        bot.register_next_step_handler(message, get_master_name)
-        notify = 'Password is right! Type your name'
+        config.MASTERS.update({message.chat.id: message.from_user.username})
+        notify = 'Password is right! Welcome to masters, @%s' % message.from_user.username
     bot.send_message(message.chat.id, notify)
-
-
-def get_master_name(message):
-    config.MASTERS.update({message.chat.id: message.text})
-    bot.send_message(message.chat.id, '%s, welcome to masters!' % message.text)
-

@@ -25,6 +25,11 @@
 from infected_player import InfectedPlayer
 import disease_reader
 
+
+class PrivacyError(EnvironmentError):
+    pass
+
+
 TOKEN = "7294933311:AAGrI19fouxT0ZEydyQ5do-W8vnEJoty28A"
 
 # telegram login of the person, who supposed to answer most users questions
@@ -50,8 +55,8 @@ reset_diseases()
 MASTER_PASS = 'OrlovSharit'
 
 MASTERS = {
-    303236745 : 'Colt',
-    154101515 : 'Mika'
+    303236745 : 'colt13',
+    154101515 : 'kunenok_mika'
 }
 
 PLAYERS = {
@@ -59,6 +64,28 @@ PLAYERS = {
     303236745  : InfectedPlayer('Colt', is_healer=False),
     5007397746 : InfectedPlayer('Сat', is_healer=True)
 }
+
+# chtaid: username
+__USERNAMES = {
+}
+
+#username: chatid
+__CHATIDS = {
+
+}
+
+
+def get_id(username: str):
+    if username in __CHATIDS:
+        return __CHATIDS[username]
+    else:
+        raise PrivacyError('@%s never entered the bot' % username)
+
+def get_username(chat_id: int):
+    if chat_id in __USERNAMES:
+        return __USERNAMES[chat_id]
+    else:
+        raise PrivacyError('%i never entered the bot' % chat_id)
 
 DEFAULT_COMMANDS = {
     'list_masters' : 'See masters\' usernames'
@@ -96,3 +123,10 @@ PLAYER_COMMANDS.update(DEFAULT_COMMANDS)
 
 HEALER_COMMANDS = PLAYER_COMMANDS
 HEALER_COMMANDS.update({'test': 'test the player. chat id required'})
+
+
+def list_masters():
+    notify = ''
+    for name in MASTERS.values():
+        notify += '@' + name + '\n'
+    return notify

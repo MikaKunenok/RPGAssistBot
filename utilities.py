@@ -28,34 +28,15 @@ def get_symptom_at(symptoms: list, infected_for: int):
                 break
     return result
 
+
 def clear(string: str):
     return string.lower().strip()
 
-def format_id_name(name: str, chat_id:int):
-    return '%s: %i\n' % (name, chat_id)
 
-
-
-def get_id(id_str: str):
-    id_str = id_str.strip()
-    if not id_str.isnumeric():
-        raise UtilitiesError('Wrong input for id "%s"' % id_str)
-    return int(id_str)
-
-def get_id_name(name_id: str):
-    parts = list(filter(lambda a: a!='', name_id.strip().split(' ')))
-    if len(parts) != 2:
-        raise UtilitiesError('Wrong input for "name id" string for "%s"' % name_id)
-    if parts[1].isnumeric():
-        name = parts[0]
-        chat_id = int(parts[1])
-    elif parts[0].isnumeric():
-        name = parts[1]
-        chat_id = int(parts[0])
-    else:
-        raise UtilitiesError('Wrong input for "name id" string for "%s"' % name_id)
-    return name, chat_id
-
-
+def split_string(my_str: str, parts_num=None):
+    parts = list(filter(lambda a: a!='', my_str.strip().split(' ')))
+    if parts_num is not None and len(parts) != parts_num:
+        raise UtilitiesError('Cannot split "%s" in %i parts' % (my_str, parts_num))
+    return parts
 
 
