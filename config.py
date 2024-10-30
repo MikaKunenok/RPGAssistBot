@@ -22,6 +22,7 @@
                    Do not change commands sets and names, until you're not changing the bot code itself.
 
 """
+import json
 from infected_player import InfectedPlayer
 import disease_reader
 
@@ -30,12 +31,14 @@ class PrivacyError(EnvironmentError):
     pass
 
 
-TOKEN = "7294933311:AAGrI19fouxT0ZEydyQ5do-W8vnEJoty28A"
+__CONFIG = json.load(open('data/config.json'))
+
+TOKEN = __CONFIG["TOKEN"]
 
 # telegram login of the person, who supposed to answer most users questions
-DEVELOPER = 'kunenok_mika'
-TIMEZONE = "Asia/Tbilisi"
-TIMEZONE_COMMON_NAME = "Tbilisi"
+DEVELOPER = __CONFIG["DEVELOPER"]
+TIMEZONE = __CONFIG["TIMEZONE"]
+TIMEZONE_COMMON_NAME = __CONFIG["TIMEZONE_COMMON_NAME"]
 
 #
 RULES_URL = "https://docs.google.com/document/d/1V78lwOSnsDeoXex329XXh7I379fNMcIvODqNJy-rUyo"
@@ -52,18 +55,13 @@ def reset_diseases():
 
 reset_diseases()
 
-MASTER_PASS = 'OrlovSharit'
+MASTER_PASS = __CONFIG["MASTER_PASS"]
 
-MASTERS = {
-    303236745 : 'colt13',
-    154101515 : 'kunenok_mika'
-}
+MASTERS = __CONFIG.get("MASTERS", {})
 
-PLAYERS = {
-    154101515  : InfectedPlayer('Mika', is_healer=False),
-    303236745  : InfectedPlayer('Colt', is_healer=False),
-    5007397746 : InfectedPlayer('Сat', is_healer=True)
-}
+PLAYERS = __CONFIG.get("PLAYERS", {})
+for player_id, name_healer in PLAYERS.values():
+    PLAYERS.update({player_id, InfectedPlayer(name=name_healer[0], is_healer=name_healer[1])})
 
 # chtaid: username
 __USERNAMES = {
